@@ -1,0 +1,5 @@
+{
+  "vsicons.presets.nestjs": true,
+  "vsicons.presets.angular": true,
+  "workbench.panel.defaultLocation": "right"
+}
