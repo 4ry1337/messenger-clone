@@ -23,7 +23,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
   const router = useRouter();
 
   const handleClick = useCallback(() => {
-    router.push(`/conversation/${data.id}`);
+    router.push(`/conversations/${data.id}`);
   }, [data.id, router]);
 
   const lastMessage = useMemo(() => {
@@ -32,7 +32,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
   }, [data.messages]);
 
   const userEmail = useMemo(() => {
-    return session.data?.user?.email;
+    const email = session.data?.user?.email;
+    return email;
   }, [session.data?.user?.email]);
 
   const hasSeen = useMemo(() => {
@@ -65,17 +66,17 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
       onClick={handleClick}
       className={clsx(
         `
-        relative
-        flex
-        w-full
-        cursor-pointer
-        items-center
-        space-x-3
-        rounded-lg
-        p-3
-        transition
-        hover:bg-neutral-100
-      `,
+          relative
+          flex
+          w-full
+          cursor-pointer
+          items-center
+          space-x-3
+          rounded-lg
+          p-3
+          transition
+          hover:bg-neutral-100
+        `,
         selected ? 'bg-neutral-100' : 'bg-white'
       )}
     >
