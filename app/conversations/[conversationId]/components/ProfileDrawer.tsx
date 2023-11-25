@@ -6,7 +6,7 @@ import useOtherUser from '@/app/hooks/useOtherUser';
 import { Dialog, Transition } from '@headlessui/react';
 import { Conversation, User } from '@prisma/client';
 import { format } from 'date-fns';
-import { Fragment, useMemo } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { IoClose, IoTrash } from 'react-icons/io5';
 
 interface ProfileDrawerProps {
@@ -22,25 +22,35 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const otherUser = useOtherUser(data);
+
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createdAt), 'PP');
   }, [otherUser.createdAt]);
+
   const title = useMemo(() => {
     return data.name || otherUser.name;
   }, [data.name, otherUser.name]);
+
   const stautsText = useMemo(() => {
     if (data.isGroup) {
       return `${data.users.length} members`;
     }
     return 'Active';
   }, [data]);
+
   return (
     <>
       <Modal
-        isOpen
-        onClose={() => {}}
-      />
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        <div className='bg-white p-5'>
+          <p>Hello Modal</p>
+        </div>
+      </Modal>
       <Transition.Root
         show={isOpen}
         as={Fragment}
@@ -126,7 +136,9 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                           </div>
                           <div className='my-8 flex gap-10'>
                             <div
-                              onClick={() => {}}
+                              onClick={() =>
+                                setIsModalOpen(true)
+                              }
                               className='flex cursor-pointer flex-col items-center gap-3 hover:opacity-75'
                             >
                               <div className='flex h-10 w-10 items-center justify-center rounded-full bg-neutral-100'>
