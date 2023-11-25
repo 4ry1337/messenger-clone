@@ -4,11 +4,12 @@ import Avatar from '@/app/components/Avatar';
 import useOtherUser from '@/app/hooks/useOtherUser';
 import { Conversation, User } from '@prisma/client';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   HiChevronLeft,
   HiEllipsisHorizontal,
 } from 'react-icons/hi2';
+import ProfileDrawer from './ProfileDrawer';
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -26,9 +27,16 @@ const Header: React.FC<HeaderProps> = ({
     }
     return 'Active';
   }, [conversation]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   return (
-    <div
-      className='
+    <>
+      <ProfileDrawer
+        data={conversation}
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      />
+      <div
+        className='
         flex
         w-full
         items-center
@@ -41,11 +49,11 @@ const Header: React.FC<HeaderProps> = ({
         sm:px-4
         lg:px-6
       '
-    >
-      <div className='flex items-center gap-3'>
-        <Link
-          href={'/conversations'}
-          className='
+      >
+        <div className='flex items-center gap-3'>
+          <Link
+            href={'/conversations'}
+            className='
             block
             cursor-pointer
             text-sky-500
@@ -53,23 +61,24 @@ const Header: React.FC<HeaderProps> = ({
             hover:text-sky-600
             lg:hidden
           '
-        >
-          <HiChevronLeft size={32} />
-        </Link>
-        <Avatar user={otherUser} />
-        <div className='flex flex-col'>
-          <div>{conversation.name || otherUser.name}</div>
-          <div className='font-lighy text-sm text-neutral-500'>
-            {statusText}
+          >
+            <HiChevronLeft size={32} />
+          </Link>
+          <Avatar user={otherUser} />
+          <div className='flex flex-col'>
+            <div>{conversation.name || otherUser.name}</div>
+            <div className='font-lighy text-sm text-neutral-500'>
+              {statusText}
+            </div>
           </div>
         </div>
+        <HiEllipsisHorizontal
+          size={32}
+          onClick={() => setDrawerOpen(true)}
+          className='trnasition cursor-pointer text-sky-500 hover:text-sky-600'
+        />
       </div>
-      <HiEllipsisHorizontal
-        size={32}
-        onClick={() => {}}
-        className='trnasition cursor-pointer text-sky-500 hover:text-sky-600'
-      />
-    </div>
+    </>
   );
 };
 
