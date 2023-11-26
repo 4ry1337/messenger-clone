@@ -63,8 +63,10 @@ const MessageBox: React.FC<MessageBoxProps> = ({
               height={288}
               width={288}
               src={data.image}
+              priority={false}
               className='
-                translate
+                h-auto
+                w-auto
                 cursor-pointer
                 object-cover
                 transition

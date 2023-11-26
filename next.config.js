@@ -4,10 +4,22 @@ const nextConfig = {
     swcPlugins: [['next-superjson-plugin', {}]],
   },
   images: {
-    domains: [
-      `res.cloudinary.com`,
-      `avatars.githubusercontent.com`,
-      `lh3.googleusercontent.com`,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        pathname: '**',
+        hostname: `res.cloudinary.com`,
+      },
+      {
+        protocol: 'https',
+        pathname: '**',
+        hostname: `avatars.githubusercontent.com`,
+      },
+      {
+        protocol: 'https',
+        pathname: '**',
+        hostname: `lh3.googleusercontent.com`,
+      },
     ],
   },
 };
