@@ -35,6 +35,11 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
           <Image
             alt='Avatar'
             fill
+            sizes='
+            (min-width: 66em) 33vw,
+            (min-width: 44em) 50vw,
+            100vw
+            '
             src={users?.image || '/images/placeholder.jpg'}
           />
         </div>
