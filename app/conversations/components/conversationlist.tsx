@@ -2,30 +2,41 @@
 
 import useConversation from '@/app/hooks/useConversation';
 import { FullConversationType } from '@/app/types';
+import { User } from '@prisma/client';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MdOutlineGroupAdd } from 'react-icons/md';
-import ConversationBox from './conversationbox';
+import ConversationBox from './ConversationBox';
+import GroupChatModal from './GroupChatModal';
 
 interface ConversationListProps {
+  users: User[];
   initialConversations: FullConversationType[];
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({
+  users,
   initialConversations,
 }) => {
   const [conversations, setConversations] = useState(
     initialConversations
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const { conversationId, isOpen } = useConversation();
 
   return (
-    <aside
-      className={clsx(
-        `
+    <>
+      <GroupChatModal
+        users={users}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+      <aside
+        className={clsx(
+          `
         fixed
         inset-y-0
         overflow-y-auto
@@ -37,22 +48,23 @@ const ConversationList: React.FC<ConversationListProps> = ({
         lg:w-80
         lg:pb-0
     `,
-        isOpen ? 'hidden' : 'left-0 block w-full'
-      )}
-    >
-      <div className='px-5'>
-        <div className='mb-4 flex justify-between pt-4'>
-          <div
-            className='
+          isOpen ? 'hidden' : 'left-0 block w-full'
+        )}
+      >
+        <div className='px-5'>
+          <div className='mb-4 flex justify-between pt-4'>
+            <div
+              className='
               text-2xl
               font-bold
               text-neutral-200
             '
-          >
-            Messages
-          </div>
-          <div
-            className='
+            >
+              Messages
+            </div>
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className='
             cursor-pointer
             rounded-full
             bg-gray-100
@@ -61,19 +73,20 @@ const ConversationList: React.FC<ConversationListProps> = ({
             transition
             hover:opacity-75
             '
-          >
-            <MdOutlineGroupAdd size={20} />
+            >
+              <MdOutlineGroupAdd size={20} />
+            </div>
           </div>
+          {conversations.map((conversation) => (
+            <ConversationBox
+              key={conversation.id}
+              data={conversation}
+              selected={conversationId === conversation.id}
+            />
+          ))}
         </div>
-        {conversations.map((conversation) => (
-          <ConversationBox
-            key={conversation.id}
-            data={conversation}
-            selected={conversationId === conversation.id}
-          />
-        ))}
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 
