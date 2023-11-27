@@ -1,6 +1,6 @@
 import getCurrentUser from '@/app/actions/getCurrentUser';
 import DescktopSidebar from './DescktopSidebar';
-import MobileFooter from './ModileFooter';
+import MobileFooter from './MobileFooter';
 
 async function Sidebar({
   children,

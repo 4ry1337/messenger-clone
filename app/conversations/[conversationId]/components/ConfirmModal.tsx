@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/app/components/Buttons/Button';
-import Modal from '@/app/components/Modal';
+import Modal from '@/app/components/Modals/Modal';
 import useConversation from '@/app/hooks/useConversation';
 import { Dialog } from '@headlessui/react';
 import axios from 'axios';

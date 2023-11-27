@@ -14,7 +14,7 @@ import {
 import toast from 'react-hot-toast';
 import Button from '../Buttons/Button';
 import Input from '../Inputs/Input';
-import Modal from '../Modal';
+import Modal from '../Modals/Modal';
 
 interface SettingsModalProps {
   currentUser: User;
