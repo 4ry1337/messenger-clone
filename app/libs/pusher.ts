@@ -14,7 +14,7 @@ export const pusherClient = new PusherClient(
   {
     cluster: 'ap2',
     channelAuthorization: {
-      endpoint: 'api/pusher/auth',
+      endpoint: '/api/pusher/auth',
       transport: 'ajax',
     },
   }
