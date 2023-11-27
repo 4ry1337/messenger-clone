@@ -1,5 +1,6 @@
 'use client';
 
+import GroupChatModal from '@/app/components/Modals/GroupChatModal';
 import useConversation from '@/app/hooks/useConversation';
 import { pusherClient } from '@/app/libs/pusher';
 import { FullConversationType } from '@/app/types';
@@ -11,7 +12,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { MdOutlineGroupAdd } from 'react-icons/md';
 import ConversationBox from './ConversationBox';
-import GroupChatModal from '../../components/Modals/GroupChatModal';
 
 interface ConversationListProps {
   users: User[];
